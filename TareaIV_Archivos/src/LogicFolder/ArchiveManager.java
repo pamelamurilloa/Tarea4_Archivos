@@ -22,13 +22,16 @@ public class ArchiveManager {
     File usersFile;
     File carsFile;
     
+    
     public void createFileUsers(){
         usersFile = new File("users.txt");
     }
     
+    
     public void createFileCars(){
         usersFile = new File("users.txt");
     }
+    
     
     public void writeInFile(String fileString, String textToWrite) { //This can get "users" or "books", and the text you wanna write in it
         File nameFile = carsFile;      //The automatic file creaded is the booksFile
@@ -37,11 +40,8 @@ public class ArchiveManager {
         }
         
         try {
-            
-            FileWriter writer;
-            writer = new FileWriter(nameFile, true);
 
-            BufferedWriter bufferWriter = new BufferedWriter(writer);
+            BufferedWriter bufferWriter = new BufferedWriter( new FileWriter(nameFile, true) );
 
             bufferWriter.write(textToWrite);        //writes the text
             bufferWriter.newLine();                 //Goes to the next line
@@ -53,6 +53,7 @@ public class ArchiveManager {
 
     }
     
+    
     public ArrayList readInFile(String fileString){ //This can get "users" or "books"
         File nameFile = carsFile;      //The automatic file creaded is the booksFile
         if ("users".equals(fileString)) {    //Unless it is specified the contrary
@@ -63,8 +64,8 @@ public class ArchiveManager {
         String line;
         
         try {
-            FileReader reader = new FileReader(nameFile);
-            BufferedReader bufferReader = new BufferedReader(reader);
+            
+            BufferedReader bufferReader = new BufferedReader( new FileReader(nameFile) );
 
             while ( (line = bufferReader.readLine()) != null ) {
                 infoFile.add(line);
@@ -78,6 +79,7 @@ public class ArchiveManager {
         
         return infoFile;
     }
+    
     
     public void deleteAFile(String fileString) {
         File nameFile = carsFile;           //The automatic file creaded is the booksFile
