@@ -78,9 +78,23 @@ public class CarManager {
     }
     
     
-    
-    public void deleteCar() {
+    public void deleteCar(String carNumberPlate) {
+        File carFile = archiveManager.createFileCars();
+        ArrayList<String> carList = archiveManager.readInFile(carFile);
+
+        String newBookList = "";
         
+        for (int line = 0; carList.size() > line; line++) {
+            String[] currentLine = carList.get(line).toString().split(", ");
+            
+            if ( !currentLine[0].equals(carNumberPlate) && !currentLine[0].equals("") ) {
+                    newBookList = newBookList + "\n" + carList.get(line);
+                }
+            }
+        
+        archiveManager.deleteAFile(carFile);
+        archiveManager.createFileCars();
+        archiveManager.writeInFile(carFile, newBookList);
     }
     
     
