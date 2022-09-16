@@ -52,6 +52,12 @@ public class RegisterCars extends javax.swing.JDialog {
         btn4x4 = new javax.swing.JButton();
         btnAddCar = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
+        lblCapacity = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        lblCapacity1 = new javax.swing.JLabel();
+        radioButtonNo = new javax.swing.JRadioButton();
+        radioButtonYes = new javax.swing.JRadioButton();
+        lblBrandSelected = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -135,7 +141,7 @@ public class RegisterCars extends javax.swing.JDialog {
         pnlMainBackground.add(lblColors, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
         pnlMainBackground.add(colorChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 170, 30));
 
-        pnlCarColor.setBackground(new java.awt.Color(255, 0, 0));
+        pnlCarColor.setBackground(new java.awt.Color(0, 204, 204));
         pnlCarColor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         carBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/carroTrans.png"))); // NOI18N
@@ -154,24 +160,29 @@ public class RegisterCars extends javax.swing.JDialog {
                 btnSmallActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(btnSmall, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 50, 180, 60));
+        pnlMainBackground.add(btnSmall, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 180, 60));
 
         lblForce.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
         lblForce.setForeground(new java.awt.Color(0, 0, 0));
         lblForce.setText("Potencia");
-        pnlMainBackground.add(lblForce, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, -1, -1));
+        pnlMainBackground.add(lblForce, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, -1, -1));
 
         inputForce.setBackground(new java.awt.Color(245, 245, 245));
         inputForce.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         inputForce.setForeground(new java.awt.Color(51, 51, 51));
         inputForce.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         inputForce.setBorder(null);
-        pnlMainBackground.add(inputForce, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 130, 80, 50));
+        inputForce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputForceActionPerformed(evt);
+            }
+        });
+        pnlMainBackground.add(inputForce, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 130, 80, 50));
 
         lblMaxSpeed.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
         lblMaxSpeed.setForeground(new java.awt.Color(0, 0, 0));
         lblMaxSpeed.setText("Velocidad Máxima");
-        pnlMainBackground.add(lblMaxSpeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, -1, -1));
+        pnlMainBackground.add(lblMaxSpeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, -1, -1));
 
         radioButton100.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButton100.setForeground(new java.awt.Color(0, 0, 0));
@@ -181,7 +192,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 radioButton100ActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(radioButton100, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, -1, -1));
+        pnlMainBackground.add(radioButton100, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, -1));
 
         radioButton150.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButton150.setForeground(new java.awt.Color(0, 0, 0));
@@ -191,7 +202,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 radioButton150ActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(radioButton150, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 250, -1, -1));
+        pnlMainBackground.add(radioButton150, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, -1, -1));
 
         radioButton200.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButton200.setForeground(new java.awt.Color(0, 0, 0));
@@ -201,7 +212,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 radioButton200ActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(radioButton200, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 250, -1, -1));
+        pnlMainBackground.add(radioButton200, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 250, -1, -1));
 
         btn4x4.setBackground(new java.awt.Color(249, 240, 240));
         btn4x4.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
@@ -214,7 +225,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 btn4x4ActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(btn4x4, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 50, 180, 60));
+        pnlMainBackground.add(btn4x4, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 50, 180, 60));
 
         btnAddCar.setBackground(new java.awt.Color(153, 0, 51));
         btnAddCar.setFont(new java.awt.Font("Lao MN", 1, 24)); // NOI18N
@@ -234,6 +245,48 @@ public class RegisterCars extends javax.swing.JDialog {
         lblError.setForeground(new java.awt.Color(0, 0, 153));
         lblError.setText("Alguno de los campos no ha sido rellenado correctamente");
         pnlMainBackground.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 510, -1, -1));
+
+        lblCapacity.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
+        lblCapacity.setForeground(new java.awt.Color(0, 0, 0));
+        lblCapacity.setText("Capacidad");
+        pnlMainBackground.add(lblCapacity, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 140, -1, -1));
+
+        jSpinner1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        jSpinner1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlMainBackground.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 140, -1, -1));
+
+        lblCapacity1.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
+        lblCapacity1.setForeground(new java.awt.Color(0, 0, 0));
+        lblCapacity1.setText("Disponible");
+        pnlMainBackground.add(lblCapacity1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 200, -1, -1));
+
+        radioButtonNo.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
+        radioButtonNo.setForeground(new java.awt.Color(0, 0, 0));
+        radioButtonNo.setText("No");
+        radioButtonNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonNoActionPerformed(evt);
+            }
+        });
+        pnlMainBackground.add(radioButtonNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 250, -1, -1));
+
+        radioButtonYes.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
+        radioButtonYes.setForeground(new java.awt.Color(0, 0, 0));
+        radioButtonYes.setText("Sí");
+        radioButtonYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonYesActionPerformed(evt);
+            }
+        });
+        pnlMainBackground.add(radioButtonYes, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 250, -1, -1));
+
+        lblBrandSelected.setFont(new java.awt.Font("Lao MN", 1, 24)); // NOI18N
+        lblBrandSelected.setForeground(new java.awt.Color(0, 0, 0));
+        lblBrandSelected.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandSelected.setText("Marca");
+        lblBrandSelected.setToolTipText("");
+        pnlMainBackground.add(lblBrandSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 350, 90));
 
         getContentPane().add(pnlMainBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1100, 550));
 
@@ -267,6 +320,18 @@ public class RegisterCars extends javax.swing.JDialog {
     private void radioButton100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButton100ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radioButton100ActionPerformed
+
+    private void inputForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputForceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputForceActionPerformed
+
+    private void radioButtonNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioButtonNoActionPerformed
+
+    private void radioButtonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonYesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioButtonYesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,7 +386,11 @@ public class RegisterCars extends javax.swing.JDialog {
     private javax.swing.JTextField inputForce;
     private javax.swing.JTextField inputNumberPlate;
     private javax.swing.JFormattedTextField inputPrice;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblBrand;
+    private javax.swing.JLabel lblBrandSelected;
+    private javax.swing.JLabel lblCapacity;
+    private javax.swing.JLabel lblCapacity1;
     private javax.swing.JLabel lblColors;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblForce;
@@ -338,6 +407,8 @@ public class RegisterCars extends javax.swing.JDialog {
     private javax.swing.JRadioButton radioButton100;
     private javax.swing.JRadioButton radioButton150;
     private javax.swing.JRadioButton radioButton200;
+    private javax.swing.JRadioButton radioButtonNo;
+    private javax.swing.JRadioButton radioButtonYes;
     private javax.swing.JSeparator separator1;
     private javax.swing.JSeparator separator2;
     private javax.swing.JLabel studentsName;
