@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package LogicFolder;
 
 import java.io.BufferedReader;
@@ -14,30 +10,38 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author pamelamurillo
- */
 public class ArchiveManager {
     File usersFile;
     File carsFile;
+    File colorsFile;
+    File brandsFile;
     
     
-    public void createFileUsers(){
+    public File createFileUsers() {
         usersFile = new File("users.txt");
+        return usersFile;
     }
     
     
-    public void createFileCars(){
-        usersFile = new File("users.txt");
+    public File createFileCars() {
+        carsFile = new File("users.txt");
+        return carsFile;
     }
     
     
-    public void writeInFile(String fileString, String textToWrite) { //This can get "users" or "books", and the text you wanna write in it
-        File nameFile = carsFile;      //The automatic file creaded is the booksFile
-        if ("users".equals(fileString)) {    //Unless it is specified the contrary
-            nameFile = usersFile;
-        }
+    public File createFileColors() {
+        colorsFile = new File("colors.txt");
+        return colorsFile;
+    }
+    
+    
+    public File createFileBrands() {
+        brandsFile = new File("colors.txt");
+        return brandsFile;
+    }
+    
+    
+    public void writeInFile(File nameFile, String textToWrite) { //This can get "users" or "books", and the text you wanna write in it
         
         try {
 
@@ -54,11 +58,7 @@ public class ArchiveManager {
     }
     
     
-    public ArrayList readInFile(String fileString){ //This can get "users" or "books"
-        File nameFile = carsFile;      //The automatic file creaded is the booksFile
-        if ("users".equals(fileString)) {    //Unless it is specified the contrary
-            nameFile = usersFile;
-        }
+    public ArrayList readInFile(File nameFile) { //This can get "users" or "books"
         
         ArrayList infoFile = new ArrayList();
         String line;
@@ -81,12 +81,8 @@ public class ArchiveManager {
     }
     
     
-    public void deleteAFile(String fileString) {
-        File nameFile = carsFile;           //The automatic file creaded is the booksFile
-        if ("users".equals(fileString)) {    //Unless it is specified the contrary
-            nameFile = usersFile;
-        }
-        
+    public void deleteAFile(File nameFile) {
         nameFile.delete();
+        
     }
 }
