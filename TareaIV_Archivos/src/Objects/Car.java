@@ -9,9 +9,9 @@ package Objects;
  * @author pamelamurillo
  */
 public class Car {
+    private String numberPlate;
     private String brand;
     private String color;
-    private String numberPlate;
     private String type;
     private int maxSpeed;
     private int price;
