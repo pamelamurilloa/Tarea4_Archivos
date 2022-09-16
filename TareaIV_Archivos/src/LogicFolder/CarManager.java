@@ -35,6 +35,21 @@ public class CarManager {
     }
     
     
+    public String[] getCarData(String carNumberPlater) {
+        String[] carData = new String[3];
+        HashMap<String, HashMap> carHashMap = getCarList();
+        HashMap<String, String> subBook = carHashMap.get(carNumberPlater);
+        
+        carData[0] = carNumberPlater;
+        carData[1] = subBook.get("Brand");
+        carData[2] = subBook.get("Color");
+        carData[3] = subBook.get("Type");
+        carData[4] = subBook.get("MaxSpeed");
+        carData[5] = subBook.get("Price");
+        
+        return carData;
+    }
+    
     
     public HashMap<String, HashMap> getCarList() {
         HashMap<String, HashMap> carHashMap = new HashMap();
@@ -98,6 +113,28 @@ public class CarManager {
     }
     
     
+    public boolean changeCar(String carNumberPlate, String[] newCarData) {
+        boolean carChanged = false;
+        
+        if ( doesItExist(carNumberPlate) ) {
+            String[] carData = getCarData(carNumberPlate);
+
+            for (int i = 0; newCarData.length > i; i++) {
+                if (!newCarData[i].equals("") && newCarData[i] != carData[i]) {
+                    carData[i] = newCarData[i];
+                }
+            }
+            
+            deleteCar(carNumberPlate);
+            addCar(carData);
+            
+            carChanged = true;    
+            
+        }
+        
+        return carChanged;
+    }
+        
     
     public boolean doesItExist(String carNumberPlater) {
         return getCarList().containsKey(carNumberPlater);
