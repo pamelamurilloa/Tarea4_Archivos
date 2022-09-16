@@ -35,6 +35,11 @@ public class CarManager {
     }
     
     
+    public boolean doesItExist(String carNumberPlater) {
+        return getCarList().containsKey(carNumberPlater);
+    }
+    
+    
     public String[] getCarData(String carNumberPlater) {
         String[] carData = new String[3];
         HashMap<String, HashMap> carHashMap = getCarList();
@@ -134,11 +139,5 @@ public class CarManager {
         
         return carChanged;
     }
-        
-    
-    public boolean doesItExist(String carNumberPlater) {
-        return getCarList().containsKey(carNumberPlater);
-    }
-    
-    
+  
 }

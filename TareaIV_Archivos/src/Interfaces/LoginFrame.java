@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Interfaces;
 
-/**
- *
- * @author pamelamurillo
- */
+
 public class LoginFrame extends javax.swing.JFrame {
 
     private String defaultUsernameText = "Indique aquí su nombre";
@@ -180,14 +173,14 @@ public class LoginFrame extends javax.swing.JFrame {
         pnlMainBackground.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 160, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/carIcon.png"))); // NOI18N
-        pnlMainBackground.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 350, 390));
+        pnlMainBackground.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 360, 390));
 
-        getContentPane().add(pnlMainBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 790, 550));
+        getContentPane().add(pnlMainBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 800, 550));
 
         pnlHeader.setBackground(new java.awt.Color(103, 12, 43));
         pnlHeader.setForeground(new java.awt.Color(153, 0, 51));
         pnlHeader.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 130));
+        getContentPane().add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 130));
 
         pnlFooter.setBackground(new java.awt.Color(103, 12, 43));
         pnlFooter.setForeground(new java.awt.Color(153, 0, 51));
@@ -198,7 +191,7 @@ public class LoginFrame extends javax.swing.JFrame {
         studentsName.setText("Murillo Anchia Pamela");
         pnlFooter.add(studentsName, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, -1, -1));
 
-        getContentPane().add(pnlFooter, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, 1090, 60));
+        getContentPane().add(pnlFooter, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, 1100, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
