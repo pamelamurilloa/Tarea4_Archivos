@@ -23,6 +23,9 @@ public class ChangeCars extends javax.swing.JDialog {
     private void initComponents() {
 
         pnlHeader = new javax.swing.JPanel();
+        lblSubtitle = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        lblSubtitle1 = new javax.swing.JLabel();
         pnlFooter = new javax.swing.JPanel();
         studentsName = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -37,6 +40,22 @@ public class ChangeCars extends javax.swing.JDialog {
         pnlHeader.setBackground(new java.awt.Color(103, 12, 43));
         pnlHeader.setForeground(new java.awt.Color(153, 0, 51));
         pnlHeader.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblSubtitle.setFont(new java.awt.Font("Lao MN", 2, 36)); // NOI18N
+        lblSubtitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblSubtitle.setText("Enterprise");
+        pnlHeader.add(lblSubtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 190, 90));
+
+        lblTitle.setFont(new java.awt.Font("Lao MN", 1, 48)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setText("Car");
+        pnlHeader.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 90, 60));
+
+        lblSubtitle1.setFont(new java.awt.Font("Lao MN", 1, 48)); // NOI18N
+        lblSubtitle1.setForeground(new java.awt.Color(255, 255, 255));
+        lblSubtitle1.setText("Cambio de Carros");
+        pnlHeader.add(lblSubtitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 430, 90));
+
         getContentPane().add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 130));
 
         pnlFooter.setBackground(new java.awt.Color(103, 12, 43));
@@ -50,33 +69,22 @@ public class ChangeCars extends javax.swing.JDialog {
 
         getContentPane().add(pnlFooter, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, 1100, 70));
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1099, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 550, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 550));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 129, -1, -1));
 
@@ -144,6 +152,9 @@ public class ChangeCars extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblSubtitle;
+    private javax.swing.JLabel lblSubtitle1;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlFooter;
     private javax.swing.JPanel pnlFooter1;
     private javax.swing.JPanel pnlHeader;
