@@ -4,6 +4,8 @@
  */
 package tareaiv_archivos;
 
+import Interfaces.LoginFrame;
+
 /**
  *
  * @author pamelamurillo
@@ -14,7 +16,8 @@ public class MainStart {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        LoginFrame newWindow = new LoginFrame();
+        newWindow.setVisible(true);
     }
     
 }
