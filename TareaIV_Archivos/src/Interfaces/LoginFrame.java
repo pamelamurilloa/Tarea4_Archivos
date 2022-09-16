@@ -18,11 +18,16 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        btnLogin.setOpaque(true);
+        btnRegister.setOpaque(true);
     }
 
     
     public void resetLabels() {
-        
+        lblErrorUser.setVisible(false);
+        lblErrorPassword.setVisible(false);
     }
     
     /**
