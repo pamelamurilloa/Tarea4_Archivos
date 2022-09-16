@@ -36,12 +36,12 @@ public class ArchiveManager {
     
     
     public File createFileBrands() {
-        brandsFile = new File("colors.txt");
+        brandsFile = new File("brands.txt");
         return brandsFile;
     }
     
     
-    public void writeInFile(File nameFile, String textToWrite) { //This can get "users" or "books", and the text you wanna write in it
+    public void writeInFile(File nameFile, String textToWrite) {
         
         try {
 
@@ -58,7 +58,7 @@ public class ArchiveManager {
     }
     
     
-    public ArrayList readInFile(File nameFile) { //This can get "users" or "books"
+    public ArrayList readInFile(File nameFile) {
         
         ArrayList infoFile = new ArrayList();
         String line;
@@ -83,6 +83,5 @@ public class ArchiveManager {
     
     public void deleteAFile(File nameFile) {
         nameFile.delete();
-        
     }
 }
