@@ -1,9 +1,6 @@
 package Interfaces;
 
-/**
- *
- * @author pamelamurillo
- */
+
 public class ChangeCars extends javax.swing.JDialog {
 
     /**
