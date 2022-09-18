@@ -1,5 +1,7 @@
 package LogicFolder;
 
+import java.awt.Color;
+import static java.awt.Color.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,9 +13,16 @@ public class CarManager {
     private ArchiveManager colorFileManager = new ArchiveManager();
     
     String[] brandList = {"Toyota", "Hyundai", "Ford", "Mercedes-Bendz", "Volkswaven", "Lamborghini"};
-    String[] colorList = {"Blanco", "Negro", "Gris", "Café", "Amarillo", "Rojo", "Azul", "Rosado", "Verde"};
+    HashMap<String, Color> colorList = new HashMap<>();
     
     public void fillFiles() {
+        colorList.put("Blanco", white);
+        colorList.put("Negro", black);
+        colorList.put("Rojo", red);
+        colorList.put("Amarillo", yellow);
+        colorList.put("Azul", blue);
+        colorList.put("Verde", green);
+        
         File brandsFile = brandFileManager.createFileBrands();
         
         String brandString = "";
@@ -27,13 +36,45 @@ public class CarManager {
         
         String colorString = "";
         
-        for (String color : colorList) {
-            colorString = colorString + "\n" + color;
+        for ( String color : colorList.keySet() ) {
+            colorString = colorString + "\n" + color + ", " + colorList.get(color);
         }
         colorFileManager.writeInFile(colorsFile, colorString);
         
     }
     
+    public HashMap getColorList() {
+        HashMap<String, Color> colorHashMap = new HashMap();
+         
+        
+        File colorFile = colorFileManager.createFileColors();
+        ArrayList colorList = colorFileManager.readInFile(colorFile);
+        
+        for (int line = 0; colorList.size() > line; line++) {
+            if (!colorList.get(line).toString().equals("")) {
+                String[] colorData = colorList.get(line).toString().split(", ");
+                
+                colorHashMap.put(colorData[0], Color.getColor( colorData[1]) );
+            }
+        }
+        
+        return colorHashMap;
+    }
+    
+    public String[] getBrandList() {
+        String[] brandList = new String[6];
+        
+        File brandFile = brandFileManager.createFileBrands();
+        ArrayList brandStringList = brandFileManager.readInFile(brandFile);
+        
+        for (int line = 0; brandStringList.size() > line; line++) {
+            if (!brandStringList.get(line).toString().equals("")) {
+                brandList[line] = brandStringList.get(line).toString();
+            }
+        }
+        
+        return brandList;
+    }
     
     public boolean doesItExist(String carNumberPlater) {
         return getCarList().containsKey(carNumberPlater);
