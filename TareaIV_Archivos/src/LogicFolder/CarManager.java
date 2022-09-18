@@ -12,7 +12,7 @@ public class CarManager {
     private ArchiveManager brandFileManager = new ArchiveManager();
     private ArchiveManager colorFileManager = new ArchiveManager();
     
-    String[] brandList = {"Toyota", "Hyundai", "Ford", "Mercedes-Bendz", "Volkswaven", "Lamborghini"};
+    ArrayList<String> brandList = new ArrayList<>();
     HashMap<String, Color> colorList = new HashMap<>();
     
     public void fillFiles() {
@@ -22,6 +22,13 @@ public class CarManager {
         colorList.put("Amarillo", yellow);
         colorList.put("Azul", blue);
         colorList.put("Verde", green);
+
+        brandList.add("Toyota");
+        brandList.add("Hyundai");
+        brandList.add("Ford");
+        brandList.add("Mercedes-Bendz");
+        brandList.add("Volkswaven");
+        brandList.add("Lamborghini");
         
         File brandsFile = brandFileManager.createFileBrands();
         
@@ -61,17 +68,10 @@ public class CarManager {
         return colorHashMap;
     }
     
-    public String[] getBrandList() {
-        String[] brandList = new String[6];
+    public ArrayList getBrandList() {
         
         File brandFile = brandFileManager.createFileBrands();
-        ArrayList brandStringList = brandFileManager.readInFile(brandFile);
-        
-        for (int line = 0; brandStringList.size() > line; line++) {
-            if (!brandStringList.get(line).toString().equals("")) {
-                brandList[line] = brandStringList.get(line).toString();
-            }
-        }
+        ArrayList brandList = brandFileManager.readInFile(brandFile);
         
         return brandList;
     }

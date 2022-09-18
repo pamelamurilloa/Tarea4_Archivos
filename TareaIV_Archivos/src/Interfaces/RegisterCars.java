@@ -1,9 +1,15 @@
 package Interfaces;
 
+import LogicFolder.CarManager;
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
+import javax.swing.JComboBox;
 
 
 public class RegisterCars extends javax.swing.JDialog {
+    
+    CarManager carManager = new CarManager();
     
     public RegisterCars(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -13,9 +19,26 @@ public class RegisterCars extends javax.swing.JDialog {
         
         changeLightElements(false);
         change4x4Elements(false);
+        
+        fillColorComboBox();
+        fillBrandComboBox();
                 
     }
 
+    public void fillColorComboBox() {
+        HashMap<String, Color> filling = carManager.getColorList();
+        for ( String colorName : filling.keySet() ) {
+            colorChoice.addItem(colorName);
+        }
+    }
+    
+    public void fillBrandComboBox() {
+        ArrayList filling = carManager.getBrandList();
+        for ( int brand = 1; filling.size() > brand; brand++ ) {
+            if ( filling.get(brand).toString().length() > 3 );
+            brandChoice.addItem( filling.get(brand).toString() );
+        }
+    }
     
     public void changeLightElements(boolean state){
         lblForce.setVisible(state);
@@ -154,7 +177,7 @@ public class RegisterCars extends javax.swing.JDialog {
         pnlCarColor.setBackground(new java.awt.Color(0, 204, 204));
         pnlCarColor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        carBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/carroTrans.png"))); // NOI18N
+        carBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/carroTransparent.png"))); // NOI18N
         pnlCarColor.add(carBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 210));
 
         pnlMainBackground.add(pnlCarColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, -1, -1));

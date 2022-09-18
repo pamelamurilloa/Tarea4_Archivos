@@ -35,6 +35,7 @@ public class LoginFrame extends javax.swing.JFrame {
         pnlSide = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblSubtitle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         pnlMainBackground = new javax.swing.JPanel();
         lblUsername = new javax.swing.JLabel();
         inputUsername = new javax.swing.JTextField();
@@ -44,10 +45,10 @@ public class LoginFrame extends javax.swing.JFrame {
         inputPassword = new javax.swing.JPasswordField();
         lblErrorPassword = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
         btnRegister = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         pnlHeader = new javax.swing.JPanel();
         pnlFooter = new javax.swing.JPanel();
         studentsName = new javax.swing.JLabel();
@@ -68,6 +69,11 @@ public class LoginFrame extends javax.swing.JFrame {
         lblSubtitle.setForeground(new java.awt.Color(255, 255, 255));
         lblSubtitle.setText("Enterprise");
         pnlSide.add(lblSubtitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 260, 90));
+
+        jLabel1.setFont(new java.awt.Font("Lao MN", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(250, 233, 233));
+        jLabel1.setText("Version Adminitrador");
+        pnlSide.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 190, 30));
 
         getContentPane().add(pnlSide, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 550));
 
@@ -141,15 +147,10 @@ public class LoginFrame extends javax.swing.JFrame {
         pnlMainBackground.add(lblErrorPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
         pnlMainBackground.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 250, 10));
 
-        jLabel1.setFont(new java.awt.Font("Lao MN", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 0, 0));
-        jLabel1.setText("Inicio de sesión");
-        pnlMainBackground.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 190, 30));
-
         btnRegister.setBackground(new java.awt.Color(153, 0, 51));
         btnRegister.setFont(new java.awt.Font("Lao MN", 1, 18)); // NOI18N
         btnRegister.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegister.setText("Registrarse");
+        btnRegister.setText("Editar Carro");
         btnRegister.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +163,7 @@ public class LoginFrame extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(153, 0, 51));
         btnLogin.setFont(new java.awt.Font("Lao MN", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Iniciar Sesión");
+        btnLogin.setText("Registrar Carro");
         btnLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +175,11 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/carIcon.png"))); // NOI18N
         pnlMainBackground.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 360, 390));
+
+        jLabel3.setFont(new java.awt.Font("Lao MN", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 0, 0));
+        jLabel3.setText("Inicio de sesión");
+        pnlMainBackground.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 190, 30));
 
         getContentPane().add(pnlMainBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 800, 550));
 
@@ -189,7 +195,7 @@ public class LoginFrame extends javax.swing.JFrame {
         studentsName.setFont(new java.awt.Font("Helvetica Neue", 3, 14)); // NOI18N
         studentsName.setForeground(new java.awt.Color(255, 255, 255));
         studentsName.setText("Murillo Anchia Pamela");
-        pnlFooter.add(studentsName, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, -1, -1));
+        pnlFooter.add(studentsName, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, -1, -1));
 
         getContentPane().add(pnlFooter, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, 1100, 70));
 
@@ -285,6 +291,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JTextField inputUsername;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblErrorPassword;
