@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 public class RegisterCars extends javax.swing.JDialog {
     
     CarManager carManager = new CarManager();
+    String selectedBrand;
+    String selectedColor;
     
     public RegisterCars(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -159,22 +161,34 @@ public class RegisterCars extends javax.swing.JDialog {
         inputNumberPlate.setForeground(new java.awt.Color(51, 51, 51));
         inputNumberPlate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         inputNumberPlate.setBorder(null);
-        pnlMainBackground.add(inputNumberPlate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 210, 50));
+        pnlMainBackground.add(inputNumberPlate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 210, 40));
         pnlMainBackground.add(separator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 250, 10));
 
         lblBrand.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
         lblBrand.setForeground(new java.awt.Color(0, 0, 0));
         lblBrand.setText("Marcas");
         pnlMainBackground.add(lblBrand, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+
+        brandChoice.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                brandChoiceItemStateChanged(evt);
+            }
+        });
         pnlMainBackground.add(brandChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 170, 30));
 
         lblColors.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
         lblColors.setForeground(new java.awt.Color(0, 0, 0));
         lblColors.setText("Colores");
         pnlMainBackground.add(lblColors, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+
+        colorChoice.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                colorChoiceItemStateChanged(evt);
+            }
+        });
         pnlMainBackground.add(colorChoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 170, 30));
 
-        pnlCarColor.setBackground(new java.awt.Color(0, 204, 204));
+        pnlCarColor.setBackground(new java.awt.Color(255, 255, 255));
         pnlCarColor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         carBorder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/carroTransparent.png"))); // NOI18N
@@ -322,9 +336,9 @@ public class RegisterCars extends javax.swing.JDialog {
         lblBrandSelected.setFont(new java.awt.Font("Lao MN", 1, 24)); // NOI18N
         lblBrandSelected.setForeground(new java.awt.Color(0, 0, 0));
         lblBrandSelected.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandSelected.setText("Marca");
+        lblBrandSelected.setText("Toyota");
         lblBrandSelected.setToolTipText("");
-        pnlMainBackground.add(lblBrandSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 440, 350, 90));
+        pnlMainBackground.add(lblBrandSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 350, 50));
 
         inputPrice.setBackground(new java.awt.Color(245, 245, 245));
         inputPrice.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -336,7 +350,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 inputPriceActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(inputPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 210, 50));
+        pnlMainBackground.add(inputPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 210, 40));
 
         getContentPane().add(pnlMainBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1100, 550));
 
@@ -384,6 +398,19 @@ public class RegisterCars extends javax.swing.JDialog {
     private void inputPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPriceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputPriceActionPerformed
+
+    private void brandChoiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_brandChoiceItemStateChanged
+        selectedBrand = (String)brandChoice.getSelectedItem() ;
+        lblBrandSelected.setText(selectedBrand);
+    }//GEN-LAST:event_brandChoiceItemStateChanged
+
+    private void colorChoiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_colorChoiceItemStateChanged
+        String selectedColor = (String)colorChoice.getSelectedItem() ;
+        HashMap<String, Color> colorHashMap = carManager.getColorList();
+        
+        pnlCarColor.setBackground( (Color) colorHashMap.get(selectedColor) ) ;
+        
+    }//GEN-LAST:event_colorChoiceItemStateChanged
 
     /**
      * @param args the command line arguments
