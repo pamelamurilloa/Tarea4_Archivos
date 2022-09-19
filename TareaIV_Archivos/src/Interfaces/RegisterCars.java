@@ -82,8 +82,9 @@ public class RegisterCars extends javax.swing.JDialog {
         return "AEIOUaeiou".indexOf(character) != -1;
     }
     
-    public boolean validNmuberPlate(String newNumberPlate) {
+    public boolean validNumberPlate(String newNumberPlate) {
         boolean valid;
+        
         if (newNumberPlate.length() == 6) {
             String[] digitList = newNumberPlate.split("");
             if ( isVowel( digitList[0] ) || isVowel(digitList[1]) || isVowel(digitList[2]) ) {
@@ -110,7 +111,7 @@ public class RegisterCars extends javax.swing.JDialog {
         int capacity = (int) spinnerCapacity.getModel().getValue();
         String carNumberPlate = inputPrice.getText();
         
-        if ( carPrice != -1 && validNmuberPlate(carNumberPlate) ) {
+        if ( carPrice != -1 && validNumberPlate(carNumberPlate) ) {
             if ( lblForce.isVisible() == true && force != -1 ) {
                 carManager.addLightCar(new LightCar(carNumberPlate, carPrice, selectedBrand, "LightCar", selectedColor, force, maxSpeedSelected ) );
                 success = true;
