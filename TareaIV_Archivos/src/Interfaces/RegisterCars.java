@@ -4,7 +4,6 @@ import LogicFolder.CarManager;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JComboBox;
 
 
 public class RegisterCars extends javax.swing.JDialog {
@@ -21,6 +20,11 @@ public class RegisterCars extends javax.swing.JDialog {
         
         changeLightElements(false);
         change4x4Elements(false);
+        pnlCarColor.setOpaque(true);
+        pnlCarColor.setBackground( new Color(255, 255, 0) );
+        
+        btnLight.setOpaque(true);
+        btn4x4.setOpaque(true);
         
         fillColorComboBox();
         fillBrandComboBox();
@@ -42,7 +46,7 @@ public class RegisterCars extends javax.swing.JDialog {
         }
     }
     
-    public void changeLightElements(boolean state){
+    public void changeLightElements(boolean state) {
         lblForce.setVisible(state);
         inputForce.setVisible(state);
         lblMaxSpeed.setVisible(state);
@@ -51,7 +55,7 @@ public class RegisterCars extends javax.swing.JDialog {
         radioButton200.setVisible(state);
     }
     
-    public void change4x4Elements(boolean state){
+    public void change4x4Elements(boolean state) {
         lblCapacity.setVisible(state);
         spinnerCapacity.setVisible(state);
         lblAvailable.setVisible(state);
@@ -59,6 +63,16 @@ public class RegisterCars extends javax.swing.JDialog {
         radioButtonNo.setVisible(state);
     }
     
+    public boolean confirmCarAdded() {
+        boolean success = false;
+//        if () {
+//            
+//        }
+//        if ( lblForce.isVisible() || lblCapacity.isVisible() )  {
+//            
+//        }
+        return success;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -363,7 +377,8 @@ public class RegisterCars extends javax.swing.JDialog {
     }//GEN-LAST:event_btn4x4ActionPerformed
 
     private void btnAddCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarActionPerformed
-        // TODO add your handling code here:
+        boolean success = confirmCarAdded();
+        if (success == false) { lblError.setVisible(true); }
     }//GEN-LAST:event_btnAddCarActionPerformed
 
     private void btnLightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLightActionPerformed
@@ -406,9 +421,16 @@ public class RegisterCars extends javax.swing.JDialog {
 
     private void colorChoiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_colorChoiceItemStateChanged
         String selectedColor = (String)colorChoice.getSelectedItem() ;
-        HashMap<String, Color> colorHashMap = carManager.getColorList();
+        HashMap<String, String> colorHashMap = carManager.getColorList();
+        String colorString = colorHashMap.get(selectedColor).toString();
+        colorString = colorString.replaceAll("[^0-9]", " ");
+        colorString = colorString.trim();
+        colorString = colorString.replaceAll(" + ", ", ");
+        System.out.println(colorString);
         
-        pnlCarColor.setBackground( (Color) colorHashMap.get(selectedColor) ) ;
+        String[] color = colorString.split(", ");
+        
+        pnlCarColor.setBackground( new Color( Integer.parseInt(color[0]), Integer.parseInt(color[1]), Integer.parseInt(color[2]) ) );
         
     }//GEN-LAST:event_colorChoiceItemStateChanged
 
