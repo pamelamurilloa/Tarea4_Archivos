@@ -1,10 +1,17 @@
 package Interfaces;
 
+import LogicFolder.ArchiveManager;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class LoginFrame extends javax.swing.JFrame {
 
     private String defaultUsernameText = "Indique aquí su nombre";
     private String defaultPasswordText = "*********";
+    
+    private ArchiveManager archiveManager = new ArchiveManager();
     
     /**
      * Creates new form LoginFrame
@@ -21,6 +28,38 @@ public class LoginFrame extends javax.swing.JFrame {
     public void resetLabels() {
         lblErrorUser.setVisible(false);
         lblErrorPassword.setVisible(false);
+    }
+    
+    public HashMap<String, String> getAdminFile() {
+        File nameFile = archiveManager.createFileUsers();
+        ArrayList adminsInfo = archiveManager.readInFile(nameFile);
+        HashMap<String, String> adminHashMap = new HashMap();
+        
+        for (int line = 0; adminsInfo.size() > line; line++) {
+            String newLine = adminsInfo.get(line).toString();
+            String[] newLineArray = newLine.split(", ");
+            adminHashMap.put( newLineArray[0], newLineArray[1] );          
+        }
+        return adminHashMap;
+    }
+    
+    public boolean confirmIfAdminExist(String userName) {
+        boolean doesItExist = getAdminFile().containsKey(userName);
+        return doesItExist;
+    }
+    
+    
+    public boolean isThePasswordValid(String userName, String password) {
+        boolean isValid = false;
+        
+        HashMap<String, String> userInfo = getAdminFile();
+        String filePassword = userInfo.get(userName);
+        
+        if (filePassword.equals(password)) {
+            isValid = true;
+        }
+        
+        return isValid;
     }
     
     /**
