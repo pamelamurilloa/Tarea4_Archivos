@@ -15,15 +15,19 @@ public class CarManager {
     
     ArrayList<String> brandList = new ArrayList<>();
     HashMap<String, Color> colorList = new HashMap<>();
+
+    public CarManager() {
+        archiveManager.createFileCars();
+    }
+    
     
     public void fillFiles() {
         colorList.put("Blanco", Color.white);
         colorList.put("Negro", Color.black);
         colorList.put("Rojo", Color.red.brighter());
-        colorList.put("Amarillo", Color.yellow.brighter());
+        colorList.put("Amarillo", Color.orange);
         colorList.put("Azul", Color.blue.brighter());
         colorList.put("Verde", Color.green.darker());
-        colorList.put("Anaranjado", Color.orange);
 
         brandList.add("Toyota");
         brandList.add("Hyundai");
@@ -92,10 +96,11 @@ public class CarManager {
     
     
     public String[] getCarData(String carNumberPlater) {
-        String[] carData = new String[7];
         HashMap<String, HashMap> carHashMap = getCarList();
         HashMap<String, String> subCar = carHashMap.get( carNumberPlater );
         
+        String[] carData = new String[7];
+ 
         carData[0] = carNumberPlater;
         carData[1] = subCar.get("Price");
         carData[2] = subCar.get("Brand");
