@@ -16,12 +16,13 @@ public class CarManager {
     HashMap<String, Color> colorList = new HashMap<>();
     
     public void fillFiles() {
-        colorList.put("Blanco", white);
-        colorList.put("Negro", black);
-        colorList.put("Rojo", red);
-        colorList.put("Amarillo", yellow);
-        colorList.put("Azul", blue);
-        colorList.put("Verde", green);
+        colorList.put("Blanco", Color.white);
+        colorList.put("Negro", Color.black);
+        colorList.put("Rojo", Color.red.brighter());
+        colorList.put("Amarillo", Color.yellow.brighter());
+        colorList.put("Azul", Color.blue.brighter());
+        colorList.put("Verde", Color.green.darker());
+        colorList.put("Anaranjado", Color.orange);
 
         brandList.add("Toyota");
         brandList.add("Hyundai");
@@ -31,6 +32,9 @@ public class CarManager {
         brandList.add("Lamborghini");
         
         File brandsFile = brandFileManager.createFileBrands();
+        brandFileManager.deleteAFile(brandsFile);
+        brandsFile = brandFileManager.createFileBrands();
+        
         
         String brandString = "";
         
@@ -40,6 +44,8 @@ public class CarManager {
         brandFileManager.writeInFile(brandsFile, brandString);
        
         File colorsFile = colorFileManager.createFileColors();
+        colorFileManager.deleteAFile(colorsFile);
+        colorsFile = colorFileManager.createFileColors();
         
         String colorString = "";
         
@@ -51,7 +57,7 @@ public class CarManager {
     }
     
     public HashMap getColorList() {
-        HashMap<String, Color> colorHashMap = new HashMap();
+        HashMap<String, String> colorHashMap = new HashMap();
          
         
         File colorFile = colorFileManager.createFileColors();
@@ -61,7 +67,7 @@ public class CarManager {
             if (!colorList.get(line).toString().equals("")) {
                 String[] colorData = colorList.get(line).toString().split(", ");
                 
-                colorHashMap.put(colorData[0], Color.getColor( colorData[1]) );
+                colorHashMap.put(colorData[0], colorData[1] );
             }
         }
         
@@ -82,24 +88,31 @@ public class CarManager {
     
     
     public String[] getCarData(String carNumberPlater) {
-        String[] carData = new String[3];
+        String[] carData = new String[7];
         HashMap<String, HashMap> carHashMap = getCarList();
-        HashMap<String, String> subBook = carHashMap.get(carNumberPlater);
+        HashMap<String, String> subCar = carHashMap.get( carNumberPlater );
         
         carData[0] = carNumberPlater;
-        carData[1] = subBook.get("Brand");
-        carData[2] = subBook.get("Color");
-        carData[3] = subBook.get("Type");
-        carData[4] = subBook.get("MaxSpeed");
-        carData[5] = subBook.get("Price");
+        carData[1] = subCar.get("Brand");
+        carData[2] = subCar.get("Price");
+        carData[3] = subCar.get("Type");
+        carData[4] = subCar.get("Color");
+        
+        if (carData[3] == "lightCar") {
+            carData[4] = subCar.get("Power");
+            carData[4] = subCar.get("MaxSpeed");
+        } else {
+            carData[4] = subCar.get("Capacity");
+            carData[4] = subCar.get("Available");
+        }
         
         return carData;
     }
     
     
     public HashMap<String, HashMap> getCarList() {
+        
         HashMap<String, HashMap> carHashMap = new HashMap();
-         
         
         File carFile = archiveManager.createFileCars();
         ArrayList carList = archiveManager.readInFile(carFile);
@@ -110,10 +123,18 @@ public class CarManager {
                 String[] carData = carList.get(line).toString().split(", ");
                 
                 subCar.put( "Brand", carData[1]);
-                subCar.put( "Color", carData[2]);
+                subCar.put( "Price", carData[2]);
                 subCar.put( "Type", carData[3]);
-                subCar.put( "MaxSpeed", carData[4]);
-                subCar.put( "Price", carData[5]);
+                subCar.put( "Color", carData[4]);
+                
+                if (carData[3] == "lightCar") {
+                    subCar.put( "Power", carData[5]);
+                    subCar.put( "MaxSpeed", carData[6]);
+                } else {
+                    subCar.put( "Capacity", carData[5]);
+                    subCar.put( "Available", carData[6]);
+                }
+                
                 
                 carHashMap.put(carData[0], subCar);
             }
@@ -126,7 +147,7 @@ public class CarManager {
         
         boolean carAdded = false;
         if ( doesItExist(carData[0]) == false ) {
-            String newLine = carData[0] + ", " + carData[1] + ", " + carData[2] + ", " + carData[3] + ", " + carData[4] + ", " + carData[5];
+            String newLine = carData[0] + ", " + carData[1] + ", " + carData[2] + ", " + carData[3] + ", " + carData[4] + ", " + carData[5] + ", " + carData[6];
         
             File carFile = archiveManager.createFileCars();
             archiveManager.writeInFile(carFile, newLine);
@@ -165,7 +186,7 @@ public class CarManager {
         if ( doesItExist(carNumberPlate) ) {
             String[] carData = getCarData(carNumberPlate);
 
-            for (int i = 0; newCarData.length > i; i++) {
+            for (int i = 2; newCarData.length > i; i++) {
                 if (!newCarData[i].equals("") && newCarData[i] != carData[i]) {
                     carData[i] = newCarData[i];
                 }
@@ -180,5 +201,13 @@ public class CarManager {
         
         return carChanged;
     }
+    
+    public static void main(String[] args) {
+        CarManager a = new CarManager();
+        a.fillFiles();
+
+        
+    }
+
   
 }
