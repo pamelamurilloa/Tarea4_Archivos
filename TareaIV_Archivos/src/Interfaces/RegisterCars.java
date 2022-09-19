@@ -24,15 +24,21 @@ public class RegisterCars extends javax.swing.JDialog {
 
         changeLightElements(false);
         change4x4Elements(false);
+        
         pnlCarColor.setOpaque(true);
         pnlCarColor.setBackground(new Color(255, 255, 0));
 
         btnLight.setOpaque(true);
         btn4x4.setOpaque(true);
+        btnAddCar.setOpaque(true);
+        btnExit.setOpaque(true);
         
         radioButton100.setSelected(true);
         radioButtonYes.setSelected(true);
 
+        lblError.setVisible(false);
+        lblSuccess.setVisible(false);
+        
         fillColorComboBox();
         fillBrandComboBox();
 
@@ -85,11 +91,12 @@ public class RegisterCars extends javax.swing.JDialog {
     public boolean validNumberPlate(String newNumberPlate) {
         boolean valid;
         
-        if (newNumberPlate.length() == 6) {
+        if (newNumberPlate.length() == 6 && carManager.doesItExist(newNumberPlate) == false) {
             String[] digitList = newNumberPlate.split("");
             if ( isVowel( digitList[0] ) || isVowel(digitList[1]) || isVowel(digitList[2]) ) {
                 valid = false;
-            } else if ( isInteger( digitList[3] ) == -1 || isInteger(digitList[4]) == -1  || isInteger (digitList[5]) == -1 ) {
+            } else if (  isInteger( digitList[0] ) != -1 || isInteger(digitList[1]) != -1  || isInteger (digitList[2]) != -1 && 
+                         isInteger( digitList[3] ) == -1 || isInteger(digitList[4]) == -1  || isInteger (digitList[5]) == -1 ) {
                 valid = false;
             } else {
                 valid = true;
@@ -105,11 +112,10 @@ public class RegisterCars extends javax.swing.JDialog {
     
     public boolean confirmCarAdded() {
         boolean success = false;
-        
         int carPrice = isInteger( inputPrice.getText() );
         int force = isInteger( inputForce.getText() );
         int capacity = (int) spinnerCapacity.getModel().getValue();
-        String carNumberPlate = inputPrice.getText();
+        String carNumberPlate = inputNumberPlate.getText();
         
         if ( carPrice != -1 && validNumberPlate(carNumberPlate) ) {
             if ( lblForce.isVisible() == true && force != -1 ) {
@@ -204,7 +210,7 @@ public class RegisterCars extends javax.swing.JDialog {
         studentsName.setFont(new java.awt.Font("Helvetica Neue", 3, 14)); // NOI18N
         studentsName.setForeground(new java.awt.Color(255, 255, 255));
         studentsName.setText("Murillo Anchia Pamela");
-        pnlFooter.add(studentsName, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, -1, -1));
+        pnlFooter.add(studentsName, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, -1, -1));
 
         getContentPane().add(pnlFooter, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 680, 1100, 70));
 
@@ -214,21 +220,26 @@ public class RegisterCars extends javax.swing.JDialog {
         lblPrice.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
         lblPrice.setForeground(new java.awt.Color(0, 0, 0));
         lblPrice.setText("Precio");
-        pnlMainBackground.add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
-        pnlMainBackground.add(separator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 250, 10));
+        pnlMainBackground.add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
+        pnlMainBackground.add(separator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 250, 10));
 
         lblNumberPlate.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
         lblNumberPlate.setForeground(new java.awt.Color(0, 0, 0));
         lblNumberPlate.setText("Número de placa");
-        pnlMainBackground.add(lblNumberPlate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        pnlMainBackground.add(lblNumberPlate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         inputNumberPlate.setBackground(new java.awt.Color(245, 245, 245));
         inputNumberPlate.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         inputNumberPlate.setForeground(new java.awt.Color(51, 51, 51));
         inputNumberPlate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         inputNumberPlate.setBorder(null);
-        pnlMainBackground.add(inputNumberPlate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 210, 40));
-        pnlMainBackground.add(separator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 250, 10));
+        inputNumberPlate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                inputNumberPlateMousePressed(evt);
+            }
+        });
+        pnlMainBackground.add(inputNumberPlate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 210, 40));
+        pnlMainBackground.add(separator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 250, 10));
 
         lblBrand.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
         lblBrand.setForeground(new java.awt.Color(0, 0, 0));
@@ -416,7 +427,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 inputPriceActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(inputPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 210, 40));
+        pnlMainBackground.add(inputPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 210, 40));
 
         btnExit.setBackground(new java.awt.Color(153, 0, 51));
         btnExit.setFont(new java.awt.Font("Lao MN", 1, 24)); // NOI18N
@@ -450,6 +461,8 @@ public class RegisterCars extends javax.swing.JDialog {
         boolean success = confirmCarAdded();
         if (success == false) {
             lblError.setVisible(true);
+        } else {
+            lblSuccess.setVisible(true);
         }
     }//GEN-LAST:event_btnAddCarActionPerformed
 
@@ -510,6 +523,11 @@ public class RegisterCars extends javax.swing.JDialog {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void inputNumberPlateMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputNumberPlateMousePressed
+        lblSuccess.setVisible(false);
+        lblError.setVisible(false);
+    }//GEN-LAST:event_inputNumberPlateMousePressed
 
     /**
      * @param args the command line arguments

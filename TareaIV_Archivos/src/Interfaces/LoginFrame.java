@@ -20,8 +20,14 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        btnLogin.setOpaque(true);
-        btnRegister.setOpaque(true);
+        btnRegisterCar.setOpaque(true);
+        btnEditCar.setOpaque(true);
+        
+        inputUsername.setText(defaultUsernameText);
+        inputPassword.setText(defaultPasswordText);
+        
+        lblErrorUser.setVisible(false);
+        lblErrorPassword.setVisible(false);
     }
 
     
@@ -62,6 +68,16 @@ public class LoginFrame extends javax.swing.JFrame {
         return isValid;
     }
     
+    public boolean adminIdentity() {
+        String userName = inputUsername.getText();
+        String password = String.valueOf( inputPassword.getPassword() );
+        
+        boolean identityConfirmed = false;
+        if ( confirmIfAdminExist(userName) ) {
+            identityConfirmed = isThePasswordValid(userName, password);
+        }
+        return identityConfirmed;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,8 +100,8 @@ public class LoginFrame extends javax.swing.JFrame {
         inputPassword = new javax.swing.JPasswordField();
         lblErrorPassword = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        btnRegister = new javax.swing.JButton();
-        btnLogin = new javax.swing.JButton();
+        btnEditCar = new javax.swing.JButton();
+        btnRegisterCar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         pnlHeader = new javax.swing.JPanel();
@@ -186,31 +202,31 @@ public class LoginFrame extends javax.swing.JFrame {
         pnlMainBackground.add(lblErrorPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
         pnlMainBackground.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 250, 10));
 
-        btnRegister.setBackground(new java.awt.Color(153, 0, 51));
-        btnRegister.setFont(new java.awt.Font("Lao MN", 1, 18)); // NOI18N
-        btnRegister.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegister.setText("Editar Carro");
-        btnRegister.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+        btnEditCar.setBackground(new java.awt.Color(153, 0, 51));
+        btnEditCar.setFont(new java.awt.Font("Lao MN", 1, 18)); // NOI18N
+        btnEditCar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditCar.setText("Editar Carro");
+        btnEditCar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnEditCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegisterActionPerformed(evt);
+                btnEditCarActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 160, 50));
+        pnlMainBackground.add(btnEditCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 160, 50));
 
-        btnLogin.setBackground(new java.awt.Color(153, 0, 51));
-        btnLogin.setFont(new java.awt.Font("Lao MN", 1, 18)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Registrar Carro");
-        btnLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnRegisterCar.setBackground(new java.awt.Color(153, 0, 51));
+        btnRegisterCar.setFont(new java.awt.Font("Lao MN", 1, 18)); // NOI18N
+        btnRegisterCar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegisterCar.setText("Registrar Carro");
+        btnRegisterCar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnRegisterCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegisterCar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnRegisterCarActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 160, 50));
+        pnlMainBackground.add(btnRegisterCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 160, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaces/carIcon.png"))); // NOI18N
         pnlMainBackground.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 360, 390));
@@ -280,13 +296,20 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inputPasswordMouseEntered
 
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRegisterActionPerformed
+    private void btnEditCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCarActionPerformed
+        if ( adminIdentity() ) {
+            ChangeCars newWindow = new ChangeCars(this, true);
+            newWindow.setVisible(true);
+        }
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }//GEN-LAST:event_btnEditCarActionPerformed
+
+    private void btnRegisterCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterCarActionPerformed
+        if ( adminIdentity() ) {
+            RegisterCars newWindow = new RegisterCars(this, true);
+            newWindow.setVisible(true);
+        }
+    }//GEN-LAST:event_btnRegisterCarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,8 +347,8 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnRegister;
+    private javax.swing.JButton btnEditCar;
+    private javax.swing.JButton btnRegisterCar;
     private javax.swing.JPasswordField inputPassword;
     private javax.swing.JTextField inputUsername;
     private javax.swing.JLabel jLabel1;
