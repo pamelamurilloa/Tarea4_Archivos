@@ -6,19 +6,15 @@ public class Car {
     private String brand;
     private String color;
     private String type;
-    private int maxSpeed;
     private int price;
 
-    public Car(String brand, String color, String numberPlate, String type, int maxSpeed, int price) {
+    public Car(String brand, String color, String numberPlate, String type, int price) {
         this.brand = brand;
         this.color = color;
         this.numberPlate = numberPlate;
         this.type = type;
-        this.maxSpeed = maxSpeed;
         this.price = price;
     }
-
-    
     
     public String getBrand() {
         return brand;
@@ -50,14 +46,6 @@ public class Car {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
     }
 
     public int getPrice() {
