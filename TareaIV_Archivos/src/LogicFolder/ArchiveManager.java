@@ -18,7 +18,7 @@ public class ArchiveManager {
     File colorsFile;
     File brandsFile;
     
-    HashMap<String, String> administrator = new HashMap();
+    HashMap<String, String> administratorList = new HashMap();
     
     public File createFileUsers() {
         usersFile = new File("users.txt");
@@ -84,8 +84,9 @@ public class ArchiveManager {
     }
     
     public void addAdministrator(String name, String password) {
-        if (administrator.containsKey(name) == false) {
-            administrator.put(name, password);
+        createFileUsers();
+        if (administratorList.containsKey(name) == false) {
+            administratorList.put(name, password);
             writeInFile(usersFile, name + ", " + password);
         } 
         
