@@ -1,10 +1,8 @@
 package LogicFolder;
 
-import Objects.Car;
 import Objects.LightCar;
 import Objects.OffRoad;
 import java.awt.Color;
-import static java.awt.Color.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -218,7 +216,6 @@ public class CarManager {
         CarManager a = new CarManager();
         a.fillFiles();
 
-        
     }
 
   
