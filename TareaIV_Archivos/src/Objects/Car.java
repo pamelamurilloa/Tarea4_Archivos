@@ -56,5 +56,10 @@ public class Car {
         this.price = price;
     }
     
+    public String[] getInfo() {
+        String[] carInformation = {getNumberPlate(), getPrice() + "", getBrand(), getType(), getColor()} ;
+        return carInformation;
+    }
+    
     
 }

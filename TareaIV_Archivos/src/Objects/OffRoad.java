@@ -5,7 +5,7 @@ public class OffRoad extends Car {
     private int capacity;
     private boolean available;
 
-    public OffRoad(int capacity, boolean available, String brand, String color, String numberPlate, String type, int price) {
+    public OffRoad(String numberPlate, int price, String brand, String type, String color, int capacity, boolean available) {
         super(brand, color, numberPlate, type, price);
         this.capacity = capacity;
         this.available = available;
@@ -27,4 +27,14 @@ public class OffRoad extends Car {
         this.available = available;
     }
     
+    @Override
+    public String[] getInfo() {
+        String[] carInfo = super.getInfo();
+        String newInfo = carInfo[0];
+        for (int i = 1; carInfo.length > i; i++) {
+            newInfo = newInfo + ", " + carInfo[i];
+        }
+        newInfo = newInfo + ", " + getCapacity() + ", " + isAvailable();
+        return carInfo = newInfo.split(", ");
+    }
 }

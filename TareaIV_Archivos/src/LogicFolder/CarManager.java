@@ -1,5 +1,8 @@
 package LogicFolder;
 
+import Objects.Car;
+import Objects.LightCar;
+import Objects.OffRoad;
 import java.awt.Color;
 import static java.awt.Color.*;
 import java.io.File;
@@ -82,6 +85,9 @@ public class CarManager {
         return brandList;
     }
     
+    
+    // Car managment
+    
     public boolean doesItExist(String carNumberPlater) {
         return getCarList().containsKey(carNumberPlater);
     }
@@ -93,8 +99,8 @@ public class CarManager {
         HashMap<String, String> subCar = carHashMap.get( carNumberPlater );
         
         carData[0] = carNumberPlater;
-        carData[1] = subCar.get("Brand");
-        carData[2] = subCar.get("Price");
+        carData[1] = subCar.get("Price");
+        carData[2] = subCar.get("Brand");
         carData[3] = subCar.get("Type");
         carData[4] = subCar.get("Color");
         
@@ -122,8 +128,8 @@ public class CarManager {
                 HashMap subCar = new HashMap();
                 String[] carData = carList.get(line).toString().split(", ");
                 
-                subCar.put( "Brand", carData[1]);
-                subCar.put( "Price", carData[2]);
+                subCar.put( "Price", carData[1]);
+                subCar.put( "Brand", carData[2]);
                 subCar.put( "Type", carData[3]);
                 subCar.put( "Color", carData[4]);
                 
@@ -143,8 +149,7 @@ public class CarManager {
         return carHashMap;
     }
     
-    public boolean addCar(String[] carData) {
-        
+    public boolean addCar( String[] carData) {
         boolean carAdded = false;
         if ( doesItExist(carData[0]) == false ) {
             String newLine = carData[0] + ", " + carData[1] + ", " + carData[2] + ", " + carData[3] + ", " + carData[4] + ", " + carData[5] + ", " + carData[6];
@@ -156,9 +161,17 @@ public class CarManager {
         }
 
         return carAdded;
+    }
+
+    public void addOffRoadCar( OffRoad car) {
+        addCar( car.getInfo() );
         
     }
     
+    public void addLightCar( LightCar car) {
+        addCar( car.getInfo() );
+        
+    }
     
     public void deleteCar(String carNumberPlate) {
         File carFile = archiveManager.createFileCars();
@@ -178,7 +191,6 @@ public class CarManager {
         archiveManager.createFileCars();
         archiveManager.writeInFile(carFile, newBookList);
     }
-    
     
     public boolean changeCar(String carNumberPlate, String[] newCarData) {
         boolean carChanged = false;

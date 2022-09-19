@@ -1,51 +1,58 @@
 package Interfaces;
 
 import LogicFolder.CarManager;
+import Objects.Car;
+import Objects.LightCar;
+import Objects.OffRoad;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class RegisterCars extends javax.swing.JDialog {
-    
-    CarManager carManager = new CarManager();
-    String selectedBrand;
-    String selectedColor;
-    
+
+    private CarManager carManager = new CarManager();
+    private String selectedBrand;
+    private String selectedColor;
+    private Integer maxSpeedSelected;
+    private Boolean availabilitySelected; 
+
     public RegisterCars(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setLocationRelativeTo(null);
-        
+
         changeLightElements(false);
         change4x4Elements(false);
         pnlCarColor.setOpaque(true);
-        pnlCarColor.setBackground( new Color(255, 255, 0) );
-        
+        pnlCarColor.setBackground(new Color(255, 255, 0));
+
         btnLight.setOpaque(true);
         btn4x4.setOpaque(true);
         
+        radioButton100.setSelected(true);
+        radioButtonYes.setSelected(true);
+
         fillColorComboBox();
         fillBrandComboBox();
-                
+
     }
 
     public void fillColorComboBox() {
         HashMap<String, Color> filling = carManager.getColorList();
-        for ( String colorName : filling.keySet() ) {
+        for (String colorName : filling.keySet()) {
             colorChoice.addItem(colorName);
         }
     }
-    
+
     public void fillBrandComboBox() {
         ArrayList filling = carManager.getBrandList();
-        for ( int brand = 1; filling.size() > brand; brand++ ) {
-            if ( filling.get(brand).toString().length() > 3 );
-            brandChoice.addItem( filling.get(brand).toString() );
+        for (int brand = 1; filling.size() > brand; brand++) {
+            if (filling.get(brand).toString().length() > 3);
+            brandChoice.addItem(filling.get(brand).toString());
         }
     }
-    
+
     public void changeLightElements(boolean state) {
         lblForce.setVisible(state);
         inputForce.setVisible(state);
@@ -54,7 +61,7 @@ public class RegisterCars extends javax.swing.JDialog {
         radioButton150.setVisible(state);
         radioButton200.setVisible(state);
     }
-    
+
     public void change4x4Elements(boolean state) {
         lblCapacity.setVisible(state);
         spinnerCapacity.setVisible(state);
@@ -62,18 +69,60 @@ public class RegisterCars extends javax.swing.JDialog {
         radioButtonYes.setVisible(state);
         radioButtonNo.setVisible(state);
     }
+
+    public int isInteger(String numberString) {
+        try {
+            return Integer.parseInt(numberString); 
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+    
+    public static boolean isVowel(String character) {
+        return "AEIOUaeiou".indexOf(character) != -1;
+    }
+    
+    public boolean validNmuberPlate(String newNumberPlate) {
+        boolean valid;
+        if (newNumberPlate.length() == 6) {
+            String[] digitList = newNumberPlate.split("");
+            if ( isVowel( digitList[0] ) || isVowel(digitList[1]) || isVowel(digitList[2]) ) {
+                valid = false;
+            } else if ( isInteger( digitList[3] ) == -1 || isInteger(digitList[4]) == -1  || isInteger (digitList[5]) == -1 ) {
+                valid = false;
+            } else {
+                valid = true;
+            }
+            
+        } else {
+            valid = false;
+        }
+        
+        return valid;
+    }
+    
     
     public boolean confirmCarAdded() {
         boolean success = false;
-//        if () {
-//            
-//        }
-//        if ( lblForce.isVisible() || lblCapacity.isVisible() )  {
-//            
-//        }
+        
+        int carPrice = isInteger( inputPrice.getText() );
+        int force = isInteger( inputForce.getText() );
+        int capacity = (int) spinnerCapacity.getModel().getValue();
+        String carNumberPlate = inputPrice.getText();
+        
+        if ( carPrice != -1 && validNmuberPlate(carNumberPlate) ) {
+            if ( lblForce.isVisible() == true && force != -1 ) {
+                carManager.addLightCar(new LightCar(carNumberPlate, carPrice, selectedBrand, "LightCar", selectedColor, force, maxSpeedSelected ) );
+                success = true;
+            } else if ( lblCapacity.isVisible() ) {
+                carManager.addOffRoadCar(new OffRoad(carNumberPlate, carPrice, selectedBrand, "OffRoad", selectedColor, capacity, availabilitySelected ) );
+                success = true;
+            }
+        }
+
         return success;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,6 +169,8 @@ public class RegisterCars extends javax.swing.JDialog {
         radioButtonYes = new javax.swing.JRadioButton();
         lblBrandSelected = new javax.swing.JLabel();
         inputPrice = new javax.swing.JTextField();
+        btnExit = new javax.swing.JButton();
+        lblSuccess = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -302,7 +353,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 btnAddCarActionPerformed(evt);
             }
         });
-        pnlMainBackground.add(btnAddCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 200, 70));
+        pnlMainBackground.add(btnAddCar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 430, 200, 70));
 
         lblError.setBackground(new java.awt.Color(255, 255, 255));
         lblError.setFont(new java.awt.Font("Helvetica Neue", 3, 14)); // NOI18N
@@ -366,6 +417,24 @@ public class RegisterCars extends javax.swing.JDialog {
         });
         pnlMainBackground.add(inputPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 210, 40));
 
+        btnExit.setBackground(new java.awt.Color(153, 0, 51));
+        btnExit.setFont(new java.awt.Font("Lao MN", 1, 24)); // NOI18N
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("Salir");
+        btnExit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+        pnlMainBackground.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 430, 200, 70));
+
+        lblSuccess.setFont(new java.awt.Font("Lao Sangam MN", 0, 24)); // NOI18N
+        lblSuccess.setForeground(new java.awt.Color(0, 0, 0));
+        lblSuccess.setText("Se ha añadido el carro con éxito");
+        pnlMainBackground.add(lblSuccess, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 383, 380, 30));
+
         getContentPane().add(pnlMainBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1100, 550));
 
         pack();
@@ -378,7 +447,9 @@ public class RegisterCars extends javax.swing.JDialog {
 
     private void btnAddCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCarActionPerformed
         boolean success = confirmCarAdded();
-        if (success == false) { lblError.setVisible(true); }
+        if (success == false) {
+            lblError.setVisible(true);
+        }
     }//GEN-LAST:event_btnAddCarActionPerformed
 
     private void btnLightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLightActionPerformed
@@ -387,15 +458,15 @@ public class RegisterCars extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLightActionPerformed
 
     private void radioButton150ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButton150ActionPerformed
-        // TODO add your handling code here:
+        maxSpeedSelected = 150;
     }//GEN-LAST:event_radioButton150ActionPerformed
 
     private void radioButton200ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButton200ActionPerformed
-        // TODO add your handling code here:
+        maxSpeedSelected = 200;
     }//GEN-LAST:event_radioButton200ActionPerformed
 
     private void radioButton100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButton100ActionPerformed
-        // TODO add your handling code here:
+       maxSpeedSelected = 100;
     }//GEN-LAST:event_radioButton100ActionPerformed
 
     private void inputForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputForceActionPerformed
@@ -403,11 +474,11 @@ public class RegisterCars extends javax.swing.JDialog {
     }//GEN-LAST:event_inputForceActionPerformed
 
     private void radioButtonNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonNoActionPerformed
-        // TODO add your handling code here:
+        availabilitySelected = false;
     }//GEN-LAST:event_radioButtonNoActionPerformed
 
     private void radioButtonYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonYesActionPerformed
-        // TODO add your handling code here:
+        availabilitySelected = true;
     }//GEN-LAST:event_radioButtonYesActionPerformed
 
     private void inputPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPriceActionPerformed
@@ -415,24 +486,29 @@ public class RegisterCars extends javax.swing.JDialog {
     }//GEN-LAST:event_inputPriceActionPerformed
 
     private void brandChoiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_brandChoiceItemStateChanged
-        selectedBrand = (String)brandChoice.getSelectedItem() ;
+        selectedBrand = (String) brandChoice.getSelectedItem();
         lblBrandSelected.setText(selectedBrand);
     }//GEN-LAST:event_brandChoiceItemStateChanged
 
     private void colorChoiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_colorChoiceItemStateChanged
-        String selectedColor = (String)colorChoice.getSelectedItem() ;
+        selectedColor = (String) colorChoice.getSelectedItem();
+        
         HashMap<String, String> colorHashMap = carManager.getColorList();
         String colorString = colorHashMap.get(selectedColor).toString();
         colorString = colorString.replaceAll("[^0-9]", " ");
         colorString = colorString.trim();
         colorString = colorString.replaceAll(" + ", ", ");
         System.out.println(colorString);
-        
+
         String[] color = colorString.split(", ");
-        
-        pnlCarColor.setBackground( new Color( Integer.parseInt(color[0]), Integer.parseInt(color[1]), Integer.parseInt(color[2]) ) );
-        
+
+        pnlCarColor.setBackground(new Color(Integer.parseInt(color[0]), Integer.parseInt(color[1]), Integer.parseInt(color[2])));
+
     }//GEN-LAST:event_colorChoiceItemStateChanged
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -482,6 +558,7 @@ public class RegisterCars extends javax.swing.JDialog {
     private java.awt.Choice brandChoice;
     private javax.swing.JButton btn4x4;
     private javax.swing.JButton btnAddCar;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLight;
     private javax.swing.JLabel carBorder;
     private java.awt.Choice colorChoice;
@@ -500,6 +577,7 @@ public class RegisterCars extends javax.swing.JDialog {
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblSubtitle;
     private javax.swing.JLabel lblSubtitle1;
+    private javax.swing.JLabel lblSuccess;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlCarColor;
     private javax.swing.JPanel pnlFooter;
