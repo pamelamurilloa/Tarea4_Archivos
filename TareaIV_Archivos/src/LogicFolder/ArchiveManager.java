@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ public class ArchiveManager {
     File colorsFile;
     File brandsFile;
     
+    HashMap<String, String> administrator = new HashMap();
     
     public File createFileUsers() {
         usersFile = new File("users.txt");
@@ -81,6 +83,13 @@ public class ArchiveManager {
         return infoFile;
     }
     
+    public void addAdministrator(String name, String password) {
+        if (administrator.containsKey(name) == false) {
+            administrator.put(name, password);
+            writeInFile(usersFile, name + ", " + password);
+        } 
+        
+    }
     
     public void deleteAFile(File nameFile) {
         nameFile.delete();
