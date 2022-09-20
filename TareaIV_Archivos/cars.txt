@@ -1,0 +1,5 @@
+
+VVV800, 123, Toyota, LightCar, Amarillo, 10, 150
+JJJ123, 80, Toyota, OffRoad, Azul, 7, true
+VVV805, 100, Mercedes-Bendz, LightCar, Negro, 20, 200
+VVV810, 100, Lamborghini, LightCar, Verde, 100, 200

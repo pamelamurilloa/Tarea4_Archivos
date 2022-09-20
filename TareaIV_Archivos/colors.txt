@@ -1,0 +1,7 @@
+
+Amarillo, java.awt.Color[r=255,g=200,b=0]
+Rojo, java.awt.Color[r=255,g=0,b=0]
+Negro, java.awt.Color[r=0,g=0,b=0]
+Blanco, java.awt.Color[r=255,g=255,b=255]
+Azul, java.awt.Color[r=0,g=0,b=255]
+Verde, java.awt.Color[r=0,g=178,b=0]
