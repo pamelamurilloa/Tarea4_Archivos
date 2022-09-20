@@ -403,11 +403,7 @@ public class ChangeCars extends javax.swing.JDialog {
             validNM = true;
             
             HashMap<String, String> carHashMap = carManager.getCarData(numberPlate);
-            for (String key : carHashMap.keySet()) {
-                System.out.println(key + ": " + carHashMap.get(key));
-            }
-                    
-            
+
             txtPrice.setText( carHashMap.get("Price") );
             
             changeCarColor( carHashMap.get("Color") );
@@ -432,7 +428,7 @@ public class ChangeCars extends javax.swing.JDialog {
                 
             } else {
                 change4x4Elements(true);
-                spinnerCapacity.setValue(carHashMap.get("Capacity"));
+                spinnerCapacity.setValue( Integer.parseInt(carHashMap.get("Capacity")) );
                 if (carHashMap.get("Available") == "true") {
                     radioButtonYes.setSelected(true);
                 } else {
