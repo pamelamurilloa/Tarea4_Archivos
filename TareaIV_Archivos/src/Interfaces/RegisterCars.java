@@ -1,7 +1,6 @@
 package Interfaces;
 
 import LogicFolder.CarManager;
-import Objects.Car;
 import Objects.LightCar;
 import Objects.OffRoad;
 import java.awt.Color;
@@ -11,8 +10,8 @@ import java.util.HashMap;
 public class RegisterCars extends javax.swing.JDialog {
 
     private CarManager carManager = new CarManager();
-    private String selectedBrand;
-    private String selectedColor;
+    private String selectedBrand = "Toyota";
+    private String selectedColor = "Amarillo";
     private Integer maxSpeedSelected;
     private Boolean availabilitySelected; 
 
@@ -34,7 +33,9 @@ public class RegisterCars extends javax.swing.JDialog {
         btnExit.setOpaque(true);
         
         radioButton100.setSelected(true);
+        maxSpeedSelected = 100;
         radioButtonYes.setSelected(true);
+        availabilitySelected = true;
 
         lblError.setVisible(false);
         lblSuccess.setVisible(false);
@@ -122,7 +123,7 @@ public class RegisterCars extends javax.swing.JDialog {
                 carManager.addLightCar(new LightCar(carNumberPlate, carPrice, selectedBrand, "LightCar", selectedColor, force, maxSpeedSelected ) );
                 success = true;
             } else if ( lblCapacity.isVisible() ) {
-                carManager.addOffRoadCar(new OffRoad(carNumberPlate, carPrice, selectedBrand, "OffRoad", selectedColor, capacity, availabilitySelected ) );
+                carManager.addOffRoadCar( new OffRoad(carNumberPlate, carPrice, selectedBrand, "OffRoad", selectedColor, capacity, availabilitySelected ) );
                 success = true;
             }
         }
@@ -512,8 +513,7 @@ public class RegisterCars extends javax.swing.JDialog {
         colorString = colorString.replaceAll("[^0-9]", " ");
         colorString = colorString.trim();
         colorString = colorString.replaceAll(" + ", ", ");
-        System.out.println(colorString);
-
+        
         String[] color = colorString.split(", ");
 
         pnlCarColor.setBackground(new Color(Integer.parseInt(color[0]), Integer.parseInt(color[1]), Integer.parseInt(color[2])));

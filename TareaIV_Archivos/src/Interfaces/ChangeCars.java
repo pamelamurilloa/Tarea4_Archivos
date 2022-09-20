@@ -24,8 +24,10 @@ public class ChangeCars extends javax.swing.JDialog {
 
         changeLightElements(false);
         change4x4Elements(false);
+        
         lblErrorNoNM.setVisible(false);
         lblError.setVisible(false);
+        lblSuccess.setVisible(false);
         
         fillColorComboBox();
         fillBrandComboBox();
@@ -34,6 +36,7 @@ public class ChangeCars extends javax.swing.JDialog {
         btn4x4.setOpaque(true);
         btnChangeCar.setOpaque(true);
         btnExit.setOpaque(true);
+        btnSearchNumberPlate.setOpaque(true);
     }
 
     /**
@@ -45,6 +48,8 @@ public class ChangeCars extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupMaxSpeed = new javax.swing.ButtonGroup();
+        btnGroupYesNo = new javax.swing.ButtonGroup();
         pnlHeader = new javax.swing.JPanel();
         lblSubtitle = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
@@ -233,6 +238,7 @@ public class ChangeCars extends javax.swing.JDialog {
         lblMaxSpeed.setText("Velocidad Máxima");
         pnlMainBackground.add(lblMaxSpeed, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, -1, -1));
 
+        btnGroupMaxSpeed.add(radioButton100);
         radioButton100.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButton100.setForeground(new java.awt.Color(0, 0, 0));
         radioButton100.setText("100");
@@ -243,6 +249,7 @@ public class ChangeCars extends javax.swing.JDialog {
         });
         pnlMainBackground.add(radioButton100, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, -1));
 
+        btnGroupMaxSpeed.add(radioButton150);
         radioButton150.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButton150.setForeground(new java.awt.Color(0, 0, 0));
         radioButton150.setText("150");
@@ -253,6 +260,7 @@ public class ChangeCars extends javax.swing.JDialog {
         });
         pnlMainBackground.add(radioButton150, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 250, -1, -1));
 
+        btnGroupMaxSpeed.add(radioButton200);
         radioButton200.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButton200.setForeground(new java.awt.Color(0, 0, 0));
         radioButton200.setText("200");
@@ -279,7 +287,7 @@ public class ChangeCars extends javax.swing.JDialog {
         btnChangeCar.setBackground(new java.awt.Color(153, 0, 51));
         btnChangeCar.setFont(new java.awt.Font("Lao MN", 1, 24)); // NOI18N
         btnChangeCar.setForeground(new java.awt.Color(255, 255, 255));
-        btnChangeCar.setText("Añadir Carro");
+        btnChangeCar.setText("Cambiar Carro");
         btnChangeCar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         btnChangeCar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnChangeCar.addActionListener(new java.awt.event.ActionListener() {
@@ -310,6 +318,7 @@ public class ChangeCars extends javax.swing.JDialog {
         lblAvailable.setText("Disponible");
         pnlMainBackground.add(lblAvailable, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 200, -1, -1));
 
+        btnGroupYesNo.add(radioButtonNo);
         radioButtonNo.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButtonNo.setForeground(new java.awt.Color(0, 0, 0));
         radioButtonNo.setText("No");
@@ -320,6 +329,7 @@ public class ChangeCars extends javax.swing.JDialog {
         });
         pnlMainBackground.add(radioButtonNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 250, -1, -1));
 
+        btnGroupYesNo.add(radioButtonYes);
         radioButtonYes.setFont(new java.awt.Font("Lao Sangam MN", 0, 18)); // NOI18N
         radioButtonYes.setForeground(new java.awt.Color(0, 0, 0));
         radioButtonYes.setText("Sí");
@@ -393,32 +403,40 @@ public class ChangeCars extends javax.swing.JDialog {
             validNM = true;
             
             HashMap<String, String> carHashMap = carManager.getCarData(numberPlate);
+            for (String key : carHashMap.keySet()) {
+                System.out.println(key + ": " + carHashMap.get(key));
+            }
+                    
             
             txtPrice.setText( carHashMap.get("Price") );
             
             changeCarColor( carHashMap.get("Color") );
             colorChoice.select( carHashMap.get("Color") );
+            selectedColor = carHashMap.get("Color");
             
             brandChoice.select( carHashMap.get("Brand") );
             lblBrandSelected.setText( carHashMap.get("Brand") );
+            selectedBrand = carHashMap.get("Brand");
             
-            if (carHashMap.get("Type") == "LightCar") {
-                inputForce.setText( carHashMap.get("Power") );
-            
+            if ( carHashMap.get("Type").equals("LightCar") ) {
+                changeLightElements(true);
+                inputForce.setText( carHashMap.get("Force") );
+                
                 if (carHashMap.get("MaxVelocity") == "100") {
                     radioButton100.setSelected(true);
-                } else if (carHashMap.get("MaxVelocity") == "150") {
+                } else if (carHashMap.get("MaxSpeed") == "150") {
                     radioButton150.setSelected(true);
                 } else {
                     radioButton200.setSelected(true);
                 }
                 
             } else {
+                change4x4Elements(true);
                 spinnerCapacity.setValue(carHashMap.get("Capacity"));
                 if (carHashMap.get("Available") == "true") {
                     radioButtonYes.setSelected(true);
                 } else {
-                    radioButtonYes.setSelected(false);
+                    radioButtonNo.setSelected(true);
                 }
             }
         }
@@ -505,7 +523,6 @@ public class ChangeCars extends javax.swing.JDialog {
         colorString = colorString.replaceAll("[^0-9]", " ");
         colorString = colorString.trim();
         colorString = colorString.replaceAll(" + ", ", ");
-        System.out.println(colorString);
 
         String[] color = colorString.split(", ");
 
@@ -580,7 +597,7 @@ public class ChangeCars extends javax.swing.JDialog {
     private void btnSearchNumberPlateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchNumberPlateActionPerformed
         boolean validNM = displayCarInfo(inputNumberPlate.getText());
         if (validNM == false) {
-            
+            lblErrorNoNM.setVisible(true);
         }
     }//GEN-LAST:event_btnSearchNumberPlateActionPerformed
 
@@ -631,6 +648,8 @@ public class ChangeCars extends javax.swing.JDialog {
     private javax.swing.JButton btn4x4;
     private javax.swing.JButton btnChangeCar;
     private javax.swing.JButton btnExit;
+    private javax.swing.ButtonGroup btnGroupMaxSpeed;
+    private javax.swing.ButtonGroup btnGroupYesNo;
     private javax.swing.JButton btnLight;
     private javax.swing.JButton btnSearchNumberPlate;
     private javax.swing.JLabel carBorder;

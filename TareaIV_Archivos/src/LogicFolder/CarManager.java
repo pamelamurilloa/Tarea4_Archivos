@@ -15,10 +15,6 @@ public class CarManager {
     
     ArrayList<String> brandList = new ArrayList<>();
     HashMap<String, Color> colorList = new HashMap<>();
-
-    public CarManager() {
-        archiveManager.createFileCars();
-    }
     
     
     public void fillFiles() {
@@ -91,6 +87,7 @@ public class CarManager {
     // Car managment
     
     public boolean doesItExist(String carNumberPlater) {
+        archiveManager.createFileCars();
         return getCarList().containsKey(carNumberPlater);
     }
     
@@ -108,7 +105,7 @@ public class CarManager {
         HashMap<String, HashMap> carHashMap = new HashMap();
         
         File carFile = archiveManager.createFileCars();
-        ArrayList carList = archiveManager.readInFile(carFile);
+        ArrayList carList = archiveManager.readInFile( carFile );
         
         for (int line = 0; carList.size() > line; line++) {
             if (!carList.get(line).toString().equals("")) {
@@ -120,8 +117,8 @@ public class CarManager {
                 subCar.put( "Type", carData[3]);
                 subCar.put( "Color", carData[4]);
                 
-                if (carData[3] == "lightCar") {
-                    subCar.put( "Power", carData[5]);
+                if ( carData[3].equals("LightCar") ) {
+                    subCar.put( "Force", carData[5]);
                     subCar.put( "MaxSpeed", carData[6]);
                 } else {
                     subCar.put( "Capacity", carData[5]);
@@ -150,13 +147,13 @@ public class CarManager {
         return carAdded;
     }
 
-    public void addOffRoadCar( OffRoad car) {
-        addCar( car.getInfo() );
+    public void addOffRoadCar( OffRoad offRoadCar) {
+        addCar( offRoadCar.getInfo() );
         
     }
     
-    public void addLightCar( LightCar car) {
-        addCar( car.getInfo() );
+    public void addLightCar( LightCar lightCar) {
+        addCar( lightCar.getInfo() );
         
     }
     
@@ -178,30 +175,5 @@ public class CarManager {
         archiveManager.createFileCars();
         archiveManager.writeInFile(carFile, newBookList);
     }
-    
-    public boolean changeCar(String carNumberPlate, HashMap newCarData) {
-        boolean carChanged = false;
-        String type = newCarData.get("Type").toString();
-        int carPrice = Integer.parseInt(newCarData.get("Price").toString());
-        
-        if (type.equals("LightCar") ) {
-            int maxVelocity = Integer.parseInt(newCarData.get("MaxVelocity").toString());
-            int force = Integer.parseInt(newCarData.get("Power").toString());
-
-            deleteCar(carNumberPlate);
-            addLightCar(new LightCar(carNumberPlate, carPrice, newCarData.get("Brand").toString(), "LightCar", newCarData.get("Color").toString(), force, maxVelocity) );
-            carChanged = true;  
-        } else {
-            int capacity = Integer.parseInt(newCarData.get("Capacity").toString());
-            boolean available = Boolean.parseBoolean(newCarData.get("Available").toString());
-
-            deleteCar(carNumberPlate);
-            addOffRoadCar(new OffRoad(carNumberPlate, carPrice, newCarData.get("Brand").toString(), "LightCar", newCarData.get("Color").toString(), capacity, available) );
-            carChanged = true;  
-        }   
-        
-        return carChanged;
-    }
-
   
 }

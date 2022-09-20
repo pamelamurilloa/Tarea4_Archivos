@@ -4,6 +4,7 @@ package LogicFolder;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -44,8 +45,8 @@ public class ArchiveManager {
     }
     
     
-    public void writeInFile(File nameFile, String textToWrite) {
-        
+    public void writeInFile(File nameFile, String textToWrite){
+
         try {
 
             BufferedWriter bufferWriter = new BufferedWriter( new FileWriter(nameFile, true) );
@@ -54,6 +55,9 @@ public class ArchiveManager {
             bufferWriter.newLine();                 //Goes to the next line
             bufferWriter.close();                   //closes the file
 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ArchiveManager.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (IOException ex) {
             Logger.getLogger(ArchiveManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,6 +80,9 @@ public class ArchiveManager {
             
             bufferReader.close();
         
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ArchiveManager.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (IOException ex) {
             Logger.getLogger(ArchiveManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -85,8 +92,13 @@ public class ArchiveManager {
     
     public void addAdministrator(String name, String password) {
         createFileUsers();
+        ArrayList userFile = readInFile(usersFile);
+        for (int line = 0; userFile.size() > line; line++) {
+            String[] newLine =  userFile.get(line).toString().split(", ");
+            administratorList.put(newLine[0], newLine[1]);
+        }
+        
         if (administratorList.containsKey(name) == false) {
-            administratorList.put(name, password);
             writeInFile(usersFile, name + ", " + password);
         } 
         
