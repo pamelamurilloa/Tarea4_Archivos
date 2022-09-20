@@ -37,6 +37,11 @@ public class ChangeCars extends javax.swing.JDialog {
         btnChangeCar.setOpaque(true);
         btnExit.setOpaque(true);
         btnSearchNumberPlate.setOpaque(true);
+        
+        radioButton100.setSelected(true);
+        maxSpeedSelected = 100;
+        radioButtonYes.setSelected(true);
+        availabilitySelected = true;
     }
 
     /**
@@ -418,7 +423,7 @@ public class ChangeCars extends javax.swing.JDialog {
                 changeLightElements(true);
                 inputForce.setText( carHashMap.get("Force") );
                 
-                if (carHashMap.get("MaxVelocity") == "100") {
+                if (carHashMap.get("MaxSpeed") == "100") {
                     radioButton100.setSelected(true);
                 } else if (carHashMap.get("MaxSpeed") == "150") {
                     radioButton150.setSelected(true);
